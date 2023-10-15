@@ -7,7 +7,7 @@ const Movie = (props) => {
     const { id } = useParams();
     const { push } = useHistory();
 
-    const {movies, deleteMovie} = props;
+    const {movies, displayFavorites, deleteMovie} = props;
     const movie = movies.find(movie=>movie.id===Number(id));
 
     handleDeleteClick = () => {
@@ -45,7 +45,8 @@ const Movie = (props) => {
                         </section>
                         
                         <section>
-                            <span className="m-2 btn btn-dark">Favorite</span>
+                            //want for favorite button to disapear if my display isn't there
+                            {displayFavorites && <span className="m-2 btn btn-dark">Favorite</span>}
                             <span className="delete" onClick={handleDeleteClick}><input type="button" className="m-2 btn btn-danger" value="Delete"/></span>
                         </section>
                     </div>
@@ -57,7 +58,8 @@ const Movie = (props) => {
 
 mapStateToProps = (state) => {
     return({
-        movies: state.movies
+        displayFavorites: state.favoritesReducer,
+        movies: state.movieReducer.movies
     })
 }
 
